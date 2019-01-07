@@ -11,9 +11,9 @@ import 'hammerjs';
 import { FuseModule } from 'theme/fuse.module';
 import { FuseSharedModule } from 'theme/shared.module';
 import {
-  FuseProgressBarModule,
-  FuseSidebarModule,
-  FuseThemeOptionsModule
+    FuseProgressBarModule,
+    FuseSidebarModule,
+    FuseThemeOptionsModule
 } from 'theme/components';
 
 import { fuseConfig } from 'app/fuse-config';
@@ -21,46 +21,51 @@ import { fuseConfig } from 'app/fuse-config';
 import { AppComponent } from 'app/app.component';
 import { LayoutModule } from 'app/layout/layout.module';
 import { SampleModule } from 'app/main/sample/sample.module';
+import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { FakeDbService } from './fake-db/fake-db.service';
 
 const appRoutes: Routes = [
-//   {
-//     path: '**',
-//     redirectTo: 'sample'
-//   },
-  {
-    path: 'pages',
-    loadChildren: './main/pages/pages.module#PagesModule'
-  }
+    //   {
+    //     path: '**',
+    //     redirectTo: 'sample'
+    //   },
+    {
+        path: 'pages',
+        loadChildren: './main/pages/pages.module#PagesModule'
+    }
 ];
 
 @NgModule({
-  declarations: [AppComponent],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    RouterModule.forRoot(appRoutes),
+    declarations: [AppComponent],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        HttpClientModule,
+        RouterModule.forRoot(appRoutes),
 
-    TranslateModule.forRoot(),
+        TranslateModule.forRoot(),
+        InMemoryWebApiModule.forRoot(FakeDbService, {
+            delay: 0,
+            passThruUnknownUrl: true
+        }),
+        // Material moment date module
+        MatMomentDateModule,
 
-    // Material moment date module
-    MatMomentDateModule,
+        // Material
+        MatButtonModule,
+        MatIconModule,
 
-    // Material
-    MatButtonModule,
-    MatIconModule,
+        // Fuse modules
+        FuseModule.forRoot(fuseConfig),
+        FuseProgressBarModule,
+        FuseSharedModule,
+        FuseSidebarModule,
+        FuseThemeOptionsModule,
 
-    // Fuse modules
-    FuseModule.forRoot(fuseConfig),
-    FuseProgressBarModule,
-    FuseSharedModule,
-    FuseSidebarModule,
-    FuseThemeOptionsModule,
-
-    // App modules
-    LayoutModule,
-    SampleModule
-  ],
-  bootstrap: [AppComponent]
+        // App modules
+        LayoutModule,
+        SampleModule
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule {}

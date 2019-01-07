@@ -24,6 +24,10 @@ import { FaqModule } from 'app/main/pages/faq/faq.module';
 import { KnowledgeBaseModule } from 'app/main/pages/knowledge-base/knowledge-base.module';
 import { DirectoresComponent } from './directores/directores.component';
 import { DirectoresModule } from './directores/directores.module';
+import { SeguimientoComponent } from './seguimiento/seguimiento.component';
+import { ListadoComponent } from './listado/listado.component';
+import { SeguimientoModule } from './seguimiento/seguimiento.module';
+import { ListadoModule } from './listado/listado.module';
 
 @NgModule({
     imports: [
@@ -69,7 +73,9 @@ import { DirectoresModule } from './directores/directores.module';
         // Knowledge base
         KnowledgeBaseModule,
         // directores
-        DirectoresModule
+        DirectoresModule,
+        SeguimientoModule,
+        ListadoModule
     ],
     declarations: []
 })
