@@ -3,3 +3,18 @@
 
 // Import app.theme.scss
 @import "app/app.theme";
+
+.background-success {
+    background-color: #D9EDF7 !important;
+    color: #3C763D !important;
+}
+
+.background-warning {
+    background-color: #FCF8E3 !important;
+    color: #8A6D3B !important;
+}
+
+.background-danger {
+    background-color: #F2DEDE !important;
+    color: #C07473 !important;
+}

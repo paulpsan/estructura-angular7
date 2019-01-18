@@ -8,7 +8,7 @@ import { RegisterComponent } from 'app/main/pages/authentication/register/regist
 
 const routes = [
     {
-        path     : 'auth/register',
+        path     : 'register',
         component: RegisterComponent
     }
 ];

@@ -3,16 +3,18 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { FuseConfigService } from 'theme/services/config.service';
 import { fuseAnimations } from 'theme/animations';
+import { RestService } from 'app/main/services/rest.service';
+import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
-    selector     : 'login',
-    templateUrl  : './login.component.html',
-    styleUrls    : ['./login.component.scss'],
+    selector: 'login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.scss'],
     encapsulation: ViewEncapsulation.None,
-    animations   : fuseAnimations
+    animations: fuseAnimations
 })
-export class LoginComponent implements OnInit
-{
+export class LoginComponent implements OnInit {
     loginForm: FormGroup;
 
     /**
@@ -22,20 +24,22 @@ export class LoginComponent implements OnInit
      * @param {FormBuilder} _formBuilder
      */
     constructor(
+        private router: Router,
         private _fuseConfigService: FuseConfigService,
-        private _formBuilder: FormBuilder
-    )
-    {
+        private _formBuilder: FormBuilder,
+        private _restService: RestService,
+        private snackBar: MatSnackBar
+    ) {
         // Configure the layout
         this._fuseConfigService.config = {
             layout: {
-                navbar   : {
+                navbar: {
                     hidden: true
                 },
-                toolbar  : {
+                toolbar: {
                     hidden: true
                 },
-                footer   : {
+                footer: {
                     hidden: true
                 },
                 sidepanel: {
@@ -52,11 +56,36 @@ export class LoginComponent implements OnInit
     /**
      * On init
      */
-    ngOnInit(): void
-    {
+    ngOnInit(): void {
         this.loginForm = this._formBuilder.group({
-            email   : ['', [Validators.required, Validators.email]],
+            email: ['', [Validators.required, Validators.email]],
             password: ['', Validators.required]
         });
+    }
+
+    // Inicia Sesión
+
+    login(): void {
+        const user = {
+            email: this.loginForm.controls['email'].value,
+            password: this.loginForm.controls['password'].value
+        };
+        console.log(user);
+        this._restService.loginUser(user).subscribe(
+            data => {
+                console.log(data);
+                this.loginForm.reset();
+                this.router.navigate(['pages']);
+            },
+            err => {
+                console.log(err);
+                this.snackBar.open(err.error.error.message, '', {
+                    horizontalPosition: 'right',
+                    verticalPosition: 'top',
+                    panelClass: 'background-danger',
+                    duration: 15000
+                });
+            }
+        );
     }
 }

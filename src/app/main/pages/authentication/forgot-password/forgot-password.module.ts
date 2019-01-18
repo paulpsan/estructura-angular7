@@ -1,6 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MatButtonModule, MatFormFieldModule, MatIconModule, MatInputModule } from '@angular/material';
+import {
+    MatButtonModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule
+} from '@angular/material';
 
 import { FuseSharedModule } from 'theme/shared.module';
 
@@ -8,16 +13,14 @@ import { ForgotPasswordComponent } from 'app/main/pages/authentication/forgot-pa
 
 const routes = [
     {
-        path     : 'auth/forgot-password',
+        path: 'forgot-password',
         component: ForgotPasswordComponent
     }
 ];
 
 @NgModule({
-    declarations: [
-        ForgotPasswordComponent
-    ],
-    imports     : [
+    declarations: [ForgotPasswordComponent],
+    imports: [
         RouterModule.forChild(routes),
 
         MatButtonModule,
@@ -28,6 +31,4 @@ const routes = [
         FuseSharedModule
     ]
 })
-export class ForgotPasswordModule
-{
-}
+export class ForgotPasswordModule {}

@@ -71,7 +71,7 @@ export const navigation: FuseNavigation[] = [
     //                     id   : 'login-v2',
     //                     title: 'Login v2',
     //                     type : 'item',
-    //                     url  : '/pages/auth/login-2'
+    //                     url  : '/pages/auth/login'
     //                 },
     //                 {
     //                     id   : 'register',
@@ -83,7 +83,7 @@ export const navigation: FuseNavigation[] = [
     //                     id   : 'register-v2',
     //                     title: 'Register v2',
     //                     type : 'item',
-    //                     url  : '/pages/auth/register-2'
+    //                     url  : '/pages/auth/register
     //                 },
     //                 {
     //                     id   : 'forgot-password',

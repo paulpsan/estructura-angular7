@@ -23,15 +23,21 @@ import { LayoutModule } from 'app/layout/layout.module';
 import { SampleModule } from 'app/main/sample/sample.module';
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { FakeDbService } from './fake-db/fake-db.service';
+import { ServicesModule } from './main/services/services.module';
 
 const appRoutes: Routes = [
-    //   {
-    //     path: '**',
-    //     redirectTo: 'sample'
-    //   },
+    {
+        path: '',
+        redirectTo: 'auth/login',
+        pathMatch: 'full'
+    },
     {
         path: 'pages',
         loadChildren: './main/pages/pages.module#PagesModule'
+    },
+    {
+        path: 'auth',
+        loadChildren: './main/pages/authentication/auth.module#AuthModule'
     }
 ];
 
@@ -64,7 +70,9 @@ const appRoutes: Routes = [
 
         // App modules
         LayoutModule,
-        SampleModule
+        SampleModule,
+        // servicios Rest
+        ServicesModule
     ],
     bootstrap: [AppComponent]
 })

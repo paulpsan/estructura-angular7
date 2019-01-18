@@ -1,40 +1,51 @@
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import {
+    AbstractControl,
+    FormBuilder,
+    FormGroup,
+    ValidationErrors,
+    ValidatorFn,
+    Validators
+} from '@angular/forms';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/internal/operators';
+import { takeUntil } from 'rxjs/operators';
 
 import { FuseConfigService } from 'theme/services/config.service';
 import { fuseAnimations } from 'theme/animations';
+import { RestService } from 'app/main/services/rest.service';
+import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
-    selector     : 'register',
-    templateUrl  : './register.component.html',
-    styleUrls    : ['./register.component.scss'],
+    selector: 'register',
+    templateUrl: './register.component.html',
+    styleUrls: ['./register.component.scss'],
     encapsulation: ViewEncapsulation.None,
-    animations   : fuseAnimations
+    animations: fuseAnimations
 })
-export class RegisterComponent implements OnInit, OnDestroy
-{
+export class RegisterComponent implements OnInit, OnDestroy {
     registerForm: FormGroup;
 
     // Private
     private _unsubscribeAll: Subject<any>;
 
     constructor(
+        private router: Router,
         private _fuseConfigService: FuseConfigService,
-        private _formBuilder: FormBuilder
-    )
-    {
+        private _formBuilder: FormBuilder,
+        private _restService: RestService,
+        private snackBar: MatSnackBar
+    ) {
         // Configure the layout
         this._fuseConfigService.config = {
             layout: {
-                navbar   : {
+                navbar: {
                     hidden: true
                 },
-                toolbar  : {
+                toolbar: {
                     hidden: true
                 },
-                footer   : {
+                footer: {
                     hidden: true
                 },
                 sidepanel: {
@@ -54,29 +65,67 @@ export class RegisterComponent implements OnInit, OnDestroy
     /**
      * On init
      */
-    ngOnInit(): void
-    {
+    ngOnInit(): void {
         this.registerForm = this._formBuilder.group({
-            name           : ['', Validators.required],
-            email          : ['', [Validators.required, Validators.email]],
-            password       : ['', Validators.required],
-            passwordConfirm: ['', [Validators.required, confirmPasswordValidator]]
+            name: ['', Validators.required],
+            lastname: ['', Validators.required],
+            username: ['', Validators.required],
+            email: ['', [Validators.required, Validators.email]],
+            password: ['', Validators.required],
+            passwordConfirm: [
+                '',
+                [Validators.required, confirmPasswordValidator]
+            ]
         });
 
         // Update the validity of the 'passwordConfirm' field
         // when the 'password' field changes
-        this.registerForm.get('password').valueChanges
-            .pipe(takeUntil(this._unsubscribeAll))
+        this.registerForm
+            .get('password')
+            .valueChanges.pipe(takeUntil(this._unsubscribeAll))
             .subscribe(() => {
-                this.registerForm.get('passwordConfirm').updateValueAndValidity();
+                this.registerForm
+                    .get('passwordConfirm')
+                    .updateValueAndValidity();
             });
     }
+    // Creacionde usuario
+    createUser(): void {
+        const user = {
+            nombre: this.registerForm.controls['name'].value,
+            apellido: this.registerForm.controls['lastname'].value,
+            username: this.registerForm.controls['username'].value,
+            email: this.registerForm.controls['email'].value,
+            password: this.registerForm.controls['password'].value
+        };
+        console.log(user);
 
+        this._restService.createUser(user).subscribe(
+            data => {
+                console.log(data);
+                this.registerForm.reset();
+                this.snackBar.open('Usuario creado exitosamente!!', '', {
+                    horizontalPosition: 'right',
+                    verticalPosition: 'top',
+                    panelClass: 'background-success',
+                    duration: 3000
+                });
+                this.router.navigate(['auth/login']);
+            },
+            err => {
+                this.snackBar.open(err.error.error.message, '', {
+                    horizontalPosition: 'right',
+                    verticalPosition: 'top',
+                    panelClass: 'background-danger',
+                    duration: 5000
+                });
+            }
+        );
+    }
     /**
      * On destroy
      */
-    ngOnDestroy(): void
-    {
+    ngOnDestroy(): void {
         // Unsubscribe from all subscriptions
         this._unsubscribeAll.next();
         this._unsubscribeAll.complete();
@@ -89,30 +138,27 @@ export class RegisterComponent implements OnInit, OnDestroy
  * @param {AbstractControl} control
  * @returns {ValidationErrors | null}
  */
-export const confirmPasswordValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
-
-    if ( !control.parent || !control )
-    {
+export const confirmPasswordValidator: ValidatorFn = (
+    control: AbstractControl
+): ValidationErrors | null => {
+    if (!control.parent || !control) {
         return null;
     }
 
     const password = control.parent.get('password');
     const passwordConfirm = control.parent.get('passwordConfirm');
 
-    if ( !password || !passwordConfirm )
-    {
+    if (!password || !passwordConfirm) {
         return null;
     }
 
-    if ( passwordConfirm.value === '' )
-    {
+    if (passwordConfirm.value === '') {
         return null;
     }
 
-    if ( password.value === passwordConfirm.value )
-    {
+    if (password.value === passwordConfirm.value) {
         return null;
     }
 
-    return {'passwordsNotMatching': true};
+    return { passwordsNotMatching: true };
 };

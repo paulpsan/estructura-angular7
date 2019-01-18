@@ -19,6 +19,7 @@ import { KnowledgeBaseFakeDb } from 'app/fake-db/knowledge-base';
 import { IconsFakeDb } from 'app/fake-db/icons';
 import { ChatPanelFakeDb } from 'app/fake-db/chat-panel';
 import { QuickPanelFakeDb } from 'app/fake-db/quick-panel';
+import { ListadoFakeDb } from './listado';
 
 export class FakeDbService implements InMemoryDbService
 {
@@ -32,6 +33,9 @@ export class FakeDbService implements InMemoryDbService
 
             // Calendar
             'calendar': CalendarFakeDb.data,
+
+            // Listado
+            'listado': ListadoFakeDb.listado,
 
             // E-Commerce
             'e-commerce-products' : ECommerceFakeDb.products,
