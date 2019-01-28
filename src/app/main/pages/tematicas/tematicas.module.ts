@@ -1,30 +1,35 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
+import { TematicasRoutingModule } from './tematicas-routing.module';
+import { TematicasComponent } from './tematicas.component';
 import {
     MatButtonModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
-    MatSelectModule,
-    MatStepperModule
+    MatPaginatorModule,
+    MatTableModule,
+    MatTooltipModule,
+    MatSortModule
 } from '@angular/material';
 import { FuseSharedModule } from 'theme/shared.module';
-import { DirectoresRoutingModule } from './directores-routing.module';
-import { DirectoresComponent } from './directores.component';
 
 
 @NgModule({
-    declarations: [DirectoresComponent],
+    declarations: [TematicasComponent],
     imports: [
-        CommonModule,
-        DirectoresRoutingModule,
+        TematicasRoutingModule,
+
+        MatTooltipModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatSortModule,
         MatButtonModule,
         MatFormFieldModule,
         MatIconModule,
         MatInputModule,
-        MatSelectModule,
-        MatStepperModule,
         FuseSharedModule
     ]
 })
-export class DirectoresModule {}
+export class TematicasModule {}

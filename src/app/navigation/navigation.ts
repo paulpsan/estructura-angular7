@@ -22,12 +22,19 @@ export const navigation: FuseNavigation[] = [
             //     }
             // },
             {
-                id: 'Directores',
-                title: 'Directores',
+                id: 'Registro',
+                title: 'Registro',
                 type: 'item',
-                icon: 'person',
-                url: '/pages/directores'
+                icon: 'file',
+                url: '/pages/registro'
             },
+            // {
+            //     id: 'Directores',
+            //     title: 'Directores',
+            //     type: 'item',
+            //     icon: 'person',
+            //     url: '/pages/directores'
+            // },
             {
                 id: 'Seguimiento',
                 title: 'Seguimiento',
@@ -41,6 +48,28 @@ export const navigation: FuseNavigation[] = [
                 type: 'item',
                 icon: 'receipt',
                 url: '/pages/listado'
+            }
+        ]
+    },
+    {
+        id: 'administracion',
+        title: 'Administracion',
+        translate: 'NAV.ADMIN',
+        type: 'group',
+        children: [
+            {
+                id: 'Usuarios',
+                title: 'Usuarios',
+                type: 'item',
+                icon: 'person',
+                url: '/pages/directores'
+            },
+            {
+                id: 'Tematica',
+                title: 'Temática',
+                type: 'item',
+                icon: 'person',
+                url: '/pages/tematica'
             }
         ]
     }

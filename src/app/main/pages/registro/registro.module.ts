@@ -6,25 +6,28 @@ import {
     MatIconModule,
     MatInputModule,
     MatSelectModule,
-    MatStepperModule
+    MatStepperModule,
+    MatDatepickerModule
 } from '@angular/material';
 import { FuseSharedModule } from 'theme/shared.module';
-import { DirectoresRoutingModule } from './directores-routing.module';
-import { DirectoresComponent } from './directores.component';
 
+import { RegistroRoutingModule } from './registro-routing.module';
+import { RegistroComponent } from './registro.component';
 
 @NgModule({
-    declarations: [DirectoresComponent],
+    declarations: [RegistroComponent],
     imports: [
         CommonModule,
-        DirectoresRoutingModule,
+        RegistroRoutingModule,
+
         MatButtonModule,
         MatFormFieldModule,
         MatIconModule,
         MatInputModule,
         MatSelectModule,
         MatStepperModule,
+        MatDatepickerModule,
         FuseSharedModule
     ]
 })
-export class DirectoresModule {}
+export class RegistroModule {}

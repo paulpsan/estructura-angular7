@@ -89,7 +89,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
                     .updateValueAndValidity();
             });
     }
-    // Creacionde usuario
+    // Creacion de usuario
     createUser(): void {
         const user = {
             nombre: this.registerForm.controls['name'].value,

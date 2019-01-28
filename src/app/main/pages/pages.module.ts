@@ -15,6 +15,8 @@ import { KnowledgeBaseModule } from 'app/main/pages/knowledge-base/knowledge-bas
 import { DirectoresModule } from './directores/directores.module';
 import { SeguimientoModule } from './seguimiento/seguimiento.module';
 import { ListadoModule } from './listado/listado.module';
+import { RegistroModule } from './registro/registro.module';
+import { TematicasModule } from './tematicas/tematicas.module';
 @NgModule({
     imports: [
         // Coming-soon
@@ -46,10 +48,12 @@ import { ListadoModule } from './listado/listado.module';
 
         // Knowledge base
         KnowledgeBaseModule,
-        // directores
+        // paginas
+        RegistroModule,
         DirectoresModule,
         SeguimientoModule,
         ListadoModule,
+        TematicasModule
     ],
     declarations: []
 })

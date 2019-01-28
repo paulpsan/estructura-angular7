@@ -1,6 +1,6 @@
 @import "src/theme/scss/fuse";
 
-e-commerce-orders {
+app-listado {
 
     #orders {
 
@@ -74,7 +74,7 @@ e-commerce-orders {
         .order {
             position: relative;
             cursor: pointer;
-            height: 84px;
+            height: 54px;
         }
 
         .mat-cell {
