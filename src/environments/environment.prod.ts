@@ -1,4 +1,5 @@
 export const environment = {
     production: true,
-    hmr       : false
+    hmr       : false,
+    url: 'https://app-minedu-backend.herokuapp.com/api/'
 };
