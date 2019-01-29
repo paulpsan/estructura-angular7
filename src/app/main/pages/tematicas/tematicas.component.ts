@@ -55,7 +55,7 @@ export class TematicasComponent implements OnInit {
         console.log('object');
         this.form.reset();
     }
-    addTematica(event): void {
+    addTematica(): void {
         const dataPost = {
             titulo: this.form.controls['titulo'].value,
             descripcion: this.form.controls['descripcion'].value
