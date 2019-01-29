@@ -75,7 +75,7 @@ export class LoginComponent implements OnInit {
             data => {
                 console.log(data);
                 this.loginForm.reset();
-                this.router.navigate(['pages']);
+                this.router.navigate(['pages/listado']);
             },
             err => {
                 console.log(err);

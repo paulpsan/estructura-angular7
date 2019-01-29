@@ -17,6 +17,8 @@ import { SeguimientoModule } from './seguimiento/seguimiento.module';
 import { ListadoModule } from './listado/listado.module';
 import { RegistroModule } from './registro/registro.module';
 import { TematicasModule } from './tematicas/tematicas.module';
+import { UsuariosComponent } from './usuarios/usuarios.component';
+import { UsuariosModule } from './usuarios/usuarios.module';
 @NgModule({
     imports: [
         // Coming-soon
@@ -53,7 +55,8 @@ import { TematicasModule } from './tematicas/tematicas.module';
         DirectoresModule,
         SeguimientoModule,
         ListadoModule,
-        TematicasModule
+        TematicasModule,
+        UsuariosModule
     ],
     declarations: []
 })

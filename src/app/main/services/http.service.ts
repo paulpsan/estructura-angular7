@@ -21,6 +21,15 @@ export class HttpService {
                 )
             );
     }
+    getByid(tipo: string, id: any): Observable<any> {
+        return this._http
+            .get(this.url + tipo + '/' + id)
+            .pipe(
+                catchError((error: any) =>
+                    observableThrowError(error || 'Server error')
+                )
+            );
+    }
     getPaginado(tipo: string, obj): Observable<any> {
         let myParams = new HttpParams();
         if (obj.buscar !== undefined) {

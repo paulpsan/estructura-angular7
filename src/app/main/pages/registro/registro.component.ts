@@ -8,6 +8,7 @@ import {
 import { Subject } from 'rxjs';
 import { MatSnackBar } from '@angular/material';
 import { HttpService } from 'app/main/services/http.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-registro',
@@ -39,7 +40,8 @@ export class RegistroComponent implements OnInit, OnDestroy {
     constructor(
         private _formBuilder: FormBuilder,
         private _httpService: HttpService,
-        private snackBar: MatSnackBar
+        private snackBar: MatSnackBar,
+        private router: Router
     ) {
         // Set the private defaults
         this._unsubscribeAll = new Subject();
@@ -118,7 +120,8 @@ export class RegistroComponent implements OnInit, OnDestroy {
                 numero_transferencia: this.form.controls['numero_transferencia']
                     .value,
                 fecha_creacion: new Date(),
-                fecha_modificacion: new Date()
+                fecha_modificacion: new Date(),
+                estado: 'iniciado'
             };
             console.log(dataPost);
             this._httpService.post(`registros`, dataPost).subscribe(
@@ -129,7 +132,8 @@ export class RegistroComponent implements OnInit, OnDestroy {
                         panelClass: 'background-success',
                         duration: 5000
                     });
-                    // this.form.reset();
+                    this.form.reset();
+                    this.router.navigateByUrl('/pages/listado');
                 },
                 err => {
                     this.snackBar.open(err.error.error.message, '', {
@@ -138,7 +142,7 @@ export class RegistroComponent implements OnInit, OnDestroy {
                         panelClass: 'background-warning',
                         duration: 5000
                     });
-                    // this.form.reset();
+                    this.form.reset();
                 }
             );
         }

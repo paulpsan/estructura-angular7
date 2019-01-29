@@ -1,3 +1,127 @@
-<p>
-  seguimiento works!
-</p>
+<div id="orders" class="page-layout carded fullwidth inner-scroll">
+
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg accent"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+
+        <!-- HEADER -->
+        <div class="header accent" fxLayout="row" fxLayoutAlign="space-between center">
+
+            <!-- APP TITLE -->
+            <div fxLayout="row" fxLayoutAlign="start center" *ngIf="registro">
+
+                <button mat-icon-button class="mr-16" [routerLink]="'/pages/listado'">
+                    <mat-icon>arrow_back</mat-icon>
+                </button>
+
+                <div fxLayout="column" fxLayoutAlign="start start" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                    <div class="h2">
+                        Registro {{registro.id}}
+                    </div>
+                    <div class="subtitle secondary-text">
+                        <span>De: </span>
+                        <span>{{registro.nombres}} {{registro.apellido}}</span>
+                    </div>
+                </div>
+            </div>
+            <!-- / APP TITLE -->
+        </div>
+
+        <div class="content-card" *ngIf="registro">
+
+            <div class="order-details tab-content p-24" fusePerfectScrollbar>
+
+                <div class="section pb-48">
+
+                    <div class="pb-16" fxLayout="row" fxLayoutAlign="start center">
+                        <mat-icon class="m-0 mr-16 secondary-text">account_circle</mat-icon>
+                        <div class="h2 secondary-text">Estudiante</div>
+                    </div>
+
+                    <div class="customer mb-32">
+                        <table class="simple">
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Edad</th>
+                                    <th>Departamento</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div fxLayout="row" fxLayoutAlign="start center">
+                                            <span class="name text-truncate">{{registro.nombres}}
+                                                {{registro.apellidos}}
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span class="email text-truncate">{{registro.edad}}</span>
+                                    </td>
+                                    <td>
+                                        <span class="phone text-truncate">{{registro.departamento}}</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="section pb-48">
+
+                    <div class="pb-16" fxLayout="row" fxLayoutAlign="start center">
+                        <mat-icon class="m-0 mr-16 secondary-text">access_time</mat-icon>
+                        <div class="h2 secondary-text">Estado del Estudiante</div>
+                    </div>
+
+                    <table class="simple">
+                        <thead>
+                            <tr>
+                                <th>Estado</th>
+                                <th>Actualizado En</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr *ngFor="let status of registro.estados">
+                                <td>
+                                    <span class="status h6 p-4" [ngClass]="status.color">
+                                        {{status.nombre}}
+                                    </span>
+                                </td>
+                                <td>
+                                    <span>
+                                        {{status.fecha | date}}
+                                    </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <form class="update-status p-24" (ngSubmit)="updateStatus()" [formGroup]="statusForm" fxLayout="row"
+                        fxLayoutAlign="start center">
+
+                        <mat-form-field appearance="outline" class="mr-16" fxFlex>
+                            <mat-label>Estados</mat-label>
+                            <mat-select formControlName="newStatus" required>
+                                <mat-option *ngFor="let status of statuses" [value]="status.id">
+                                    {{status.nombre}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                        <button mat-raised-button class="mat-accent" [disabled]="statusForm.invalid">
+                            Actualizar Estado
+                        </button>
+                    </form>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

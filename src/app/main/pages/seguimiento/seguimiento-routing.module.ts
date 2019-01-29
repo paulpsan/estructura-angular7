@@ -4,7 +4,7 @@ import { SeguimientoComponent } from './seguimiento.component';
 
 const routes: Routes = [
     {
-        path: 'seguimiento',
+        path: 'seguimiento/:id',
         component: SeguimientoComponent
     }
 ];

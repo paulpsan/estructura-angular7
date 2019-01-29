@@ -1,4 +1,4 @@
-<div id="orders" class="page-layout carded fullwidth inner-scroll">
+<div id="users" class="page-layout carded fullwidth inner-scroll">
 
     <!-- TOP BACKGROUND -->
     <div class="top-bg accent"></div>
@@ -14,10 +14,10 @@
             <!-- APP TITLE -->
             <div class="logo mb-24 mb-sm-0" fxLayout="row" fxLayoutAlign="start center">
                 <mat-icon class="logo-icon s-32 mr-16" [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
-                    shopping_basket
+                    customer
                 </mat-icon>
                 <span class="logo-text h1" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">Listado de
-                    Registros</span>
+                    Usuarios</span>
             </div>
             <!-- / APP TITLE -->
 
@@ -36,72 +36,61 @@
         <!-- CONTENT CARD -->
         <div class="content-card">
 
-            <mat-table class="orders-table" [dataSource]="dataSource" matSort [@animateStagger]="{value:'50'}"
+            <mat-table class="users-table" [dataSource]="dataSource" matSort [@animateStagger]="{value:'50'}"
                 fusePerfectScrollbar>
 
-                <!-- ID Column -->
+                <!-- Nro Column -->
                 <ng-container matColumnDef="nro">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Nro</mat-header-cell>
-                    <mat-cell *matCellDef="let registro">
-                        <p class="text-truncate">{{registro.nro}}</p>
+                    <mat-cell *matCellDef="let user">
+                        <p class="text-truncate">{{user.nro}}</p>
                     </mat-cell>
                 </ng-container>
 
-                <!-- Reference Column -->
-                <ng-container matColumnDef="rude">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Rude</mat-header-cell>
-                    <mat-cell *matCellDef="let registro">
-                        <p class="text-truncate">{{registro.rude}}</p>
+                <!-- Id Column -->
+                <ng-container matColumnDef="id">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
+                    <mat-cell *matCellDef="let user">
+                        <p class="text-truncate">{{user.id}}</p>
                     </mat-cell>
                 </ng-container>
 
                 <!-- Name Column -->
-                <ng-container matColumnDef="estudiante">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Estudiante</mat-header-cell>
-                    <mat-cell *matCellDef="let registro">
+                <ng-container matColumnDef="nombre">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</mat-header-cell>
+                    <mat-cell *matCellDef="let user">
                         <p class="text-truncate">
-                            {{registro.nombres}}
-                            {{registro.apellidos}}
+                            {{user.nombre}}
                         </p>
                     </mat-cell>
                 </ng-container>
 
                 <!-- Total Price Column -->
-                <ng-container matColumnDef="unidad_educativa">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Unidad Educativa</mat-header-cell>
-                    <mat-cell *matCellDef="let registro">
+                <ng-container matColumnDef="apellido">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Apellido</mat-header-cell>
+                    <mat-cell *matCellDef="let user">
                         <p class="total-price text-truncate">
-                            {{registro.unidad_educativa}}
+                            {{user.apellido}}
                         </p>
                     </mat-cell>
                 </ng-container>
 
                 <!-- Payment Column -->
-                <ng-container matColumnDef="departamento">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Departamento</mat-header-cell>
-                    <mat-cell *matCellDef="let registro">
+                <ng-container matColumnDef="username">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Username</mat-header-cell>
+                    <mat-cell *matCellDef="let user">
                         <p class="text-truncate">
-                            {{registro.departamento}}
+                            {{user.username}}
                         </p>
                     </mat-cell>
                 </ng-container>
 
                 <!-- Status Column -->
-                <ng-container matColumnDef="temas_sociales">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Temas Sociales</mat-header-cell>
-                    <mat-cell *matCellDef="let registro">
+                <ng-container matColumnDef="email">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Correo</mat-header-cell>
+                    <mat-cell *matCellDef="let user">
                         <p class="status text-truncate h6 p-4">
-                            {{registro.temas_sociales.titulo}}
-                        </p>
-                    </mat-cell>
-                </ng-container>
-
-                <!-- Date Column -->
-                <ng-container matColumnDef="problematica">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Problemática</mat-header-cell>
-                    <mat-cell *matCellDef="let registro">
-                        <p class="text-truncate">
-                            {{registro.problematica}}
+                            {{user.email}}
                         </p>
                     </mat-cell>
                 </ng-container>
@@ -109,9 +98,19 @@
                 <!-- Date Column -->
                 <ng-container matColumnDef="estado">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Estado</mat-header-cell>
-                    <mat-cell *matCellDef="let registro">
+                    <mat-cell *matCellDef="let user">
+                        <p class="text-truncate">
+
+                        </p>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Date Column -->
+                <ng-container matColumnDef="rol">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Rol</mat-header-cell>
+                    <mat-cell *matCellDef="let user">
                         <p class="text-truncate" class="green">
-                            {{registro.estado}}
+
                         </p>
                     </mat-cell>
                 </ng-container>
@@ -119,8 +118,8 @@
                 <ng-container matColumnDef="accion">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Accion</mat-header-cell>
                     <mat-cell *matCellDef="let row">
-                        <button mat-icon-button [routerLink]="'/pages/seguimiento/'+row.id" color="accent" matTooltip="Editar">
-                            <mat-icon>announcement</mat-icon>
+                        <button mat-icon-button [routerLink]="'/pages/usuarios/'+row.id" color="accent" matTooltip="Editar">
+                            <mat-icon>edit</mat-icon>
                         </button>
                         <button mat-icon-button (click)="delete(row)" color="warn" matTooltip="Eliminar">
                             <mat-icon>delete</mat-icon>
@@ -130,7 +129,7 @@
 
                 <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
 
-                <mat-row *matRowDef="let row; columns: displayedColumns;" class="order" matRipple>
+                <mat-row *matRowDef="let row; columns: displayedColumns;" class="user" matRipple>
                 </mat-row>
             </mat-table>
 

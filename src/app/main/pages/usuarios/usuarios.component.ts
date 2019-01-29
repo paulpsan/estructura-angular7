@@ -12,36 +12,31 @@ import {
     MatSnackBar,
     MatTableDataSource
 } from '@angular/material';
-import { DataSource } from '@angular/cdk/collections';
 import { BehaviorSubject, fromEvent, merge, Observable, Subject } from 'rxjs';
-import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 
 import { fuseAnimations } from 'theme/animations';
-import { FuseUtils } from 'theme/utils';
 
-import { takeUntil } from 'rxjs/internal/operators';
-import { ListadoService } from './listado.service';
 import { HttpService } from 'app/main/services/http.service';
 import { Router } from '@angular/router';
 
 @Component({
-    selector: 'app-listado',
-    templateUrl: './listado.component.html',
-    styleUrls: ['./listado.component.scss'],
+    selector: 'app-usuarios',
+    templateUrl: './usuarios.component.html',
+    styleUrls: ['./usuarios.component.scss'],
     animations: fuseAnimations,
     encapsulation: ViewEncapsulation.None
 })
-export class ListadoComponent implements OnInit, OnDestroy {
+export class UsuariosComponent implements OnInit, OnDestroy {
     dataSource: MatTableDataSource<any>;
     displayedColumns = [
         'nro',
-        'rude',
-        'estudiante',
-        'unidad_educativa',
-        'departamento',
-        'temas_sociales',
-        'problematica',
+        'id',
+        'nombre',
+        'apellido',
+        'username',
+        'email',
         'estado',
+        'rol',
         'accion'
     ];
 
@@ -63,7 +58,6 @@ export class ListadoComponent implements OnInit, OnDestroy {
      * @param {ListadoService} _ListadoService
      */
     constructor(
-        private _ListadoService: ListadoService,
         private _httpService: HttpService,
         private snackBar: MatSnackBar,
         private router: Router
@@ -102,7 +96,7 @@ export class ListadoComponent implements OnInit, OnDestroy {
 
     getRegistros(): void {
         let contador = 1;
-        this._httpService.get(`registros`).subscribe(resp => {
+        this._httpService.get(`Users`).subscribe(resp => {
             resp.map(data => {
                 data.nro = contador;
                 data.estado = 'iniciado';
@@ -124,17 +118,17 @@ export class ListadoComponent implements OnInit, OnDestroy {
             this.dataSource.paginator.firstPage();
         }
     }
-
+    edit(): void {}
     delete(element): void {
         console.log(element);
         if (
             confirm(
-                `Esta seguro de eliminar el registro : ${element.nombres} ${
+                `Esta seguro de eliminar el Usuario : ${element.nombre} ${
                     element.apellidos
                 }`
             )
         ) {
-            this._httpService.delete(`registros`, element.id).subscribe(
+            this._httpService.delete(`Users`, element.id).subscribe(
                 resp => {
                     this.snackBar.open('La eliminación fue correcta', '', {
                         horizontalPosition: 'right',

@@ -35,13 +35,7 @@ export const navigation: FuseNavigation[] = [
             //     icon: 'person',
             //     url: '/pages/directores'
             // },
-            {
-                id: 'Seguimiento',
-                title: 'Seguimiento',
-                type: 'item',
-                icon: 'person',
-                url: '/pages/seguimiento'
-            },
+            
             {
                 id: 'Listado',
                 title: 'Listado',
@@ -62,7 +56,7 @@ export const navigation: FuseNavigation[] = [
                 title: 'Usuarios',
                 type: 'item',
                 icon: 'person',
-                url: '/pages/directores'
+                url: '/pages/usuarios'
             },
             {
                 id: 'Tematica',
