@@ -5,7 +5,8 @@
 export const environment = {
     production: false,
     hmr: false,
-    url: 'http://localhost:3000/api/'
+    url: "https://app-minedu-backend.herokuapp.com/api/"
+    // url: 'http://localhost:3000/api/'
 };
 
 /*
