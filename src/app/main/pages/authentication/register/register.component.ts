@@ -12,9 +12,9 @@ import { takeUntil } from 'rxjs/operators';
 
 import { FuseConfigService } from 'theme/services/config.service';
 import { fuseAnimations } from 'theme/animations';
-import { RestService } from 'app/main/services/rest.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
+import { UserService } from 'app/main/services/user.service';
 
 @Component({
     selector: 'register',
@@ -33,7 +33,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
         private router: Router,
         private _fuseConfigService: FuseConfigService,
         private _formBuilder: FormBuilder,
-        private _restService: RestService,
+        private _userService: UserService,
         private snackBar: MatSnackBar
     ) {
         // Configure the layout
@@ -100,7 +100,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
         };
         console.log(user);
 
-        this._restService.createUser(user).subscribe(
+        this._userService.createUser(user).subscribe(
             data => {
                 console.log(data);
                 this.registerForm.reset();

@@ -100,7 +100,7 @@
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Estado</mat-header-cell>
                     <mat-cell *matCellDef="let user">
                         <p class="text-truncate">
-
+                            {{user.estado}}
                         </p>
                     </mat-cell>
                 </ng-container>
@@ -110,7 +110,7 @@
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Rol</mat-header-cell>
                     <mat-cell *matCellDef="let user">
                         <p class="text-truncate" class="green">
-
+                            {{user.roles[0].name}}
                         </p>
                     </mat-cell>
                 </ng-container>

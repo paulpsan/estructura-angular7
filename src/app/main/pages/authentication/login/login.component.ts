@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { FuseConfigService } from 'theme/services/config.service';
 import { fuseAnimations } from 'theme/animations';
-import { RestService } from 'app/main/services/rest.service';
+import { UserService } from 'app/main/services/user.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 
@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
         private router: Router,
         private _fuseConfigService: FuseConfigService,
         private _formBuilder: FormBuilder,
-        private _restService: RestService,
+        private _userService: UserService,
         private snackBar: MatSnackBar
     ) {
         // Configure the layout
@@ -71,10 +71,9 @@ export class LoginComponent implements OnInit {
             password: this.loginForm.controls['password'].value
         };
         console.log(user);
-        this._restService.loginUser(user).subscribe(
+        this._userService.loginUser(user).subscribe(
             data => {
                 console.log(data);
-                this.loginForm.reset();
                 this.router.navigate(['pages/listado']);
             },
             err => {

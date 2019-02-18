@@ -18,6 +18,7 @@ import { fuseAnimations } from 'theme/animations';
 
 import { HttpService } from 'app/main/services/http.service';
 import { Router } from '@angular/router';
+import { UserService } from 'app/main/services/user.service';
 
 @Component({
     selector: 'app-usuarios',
@@ -58,6 +59,7 @@ export class UsuariosComponent implements OnInit, OnDestroy {
      * @param {ListadoService} _ListadoService
      */
     constructor(
+        private _userService: UserService,
         private _httpService: HttpService,
         private snackBar: MatSnackBar,
         private router: Router
@@ -96,10 +98,9 @@ export class UsuariosComponent implements OnInit, OnDestroy {
 
     getRegistros(): void {
         let contador = 1;
-        this._httpService.get(`Users`).subscribe(resp => {
+        this._userService.getUsers().subscribe(resp => {
             resp.map(data => {
                 data.nro = contador;
-                data.estado = 'iniciado';
                 contador++;
                 return data;
             });
@@ -128,7 +129,7 @@ export class UsuariosComponent implements OnInit, OnDestroy {
                 }`
             )
         ) {
-            this._httpService.delete(`Users`, element.id).subscribe(
+            this._httpService.delete(`usuarios`, element.id).subscribe(
                 resp => {
                     this.snackBar.open('La eliminación fue correcta', '', {
                         horizontalPosition: 'right',

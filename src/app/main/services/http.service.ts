@@ -14,7 +14,7 @@ export class HttpService {
     }
     get(tipo: string): Observable<any> {
         return this._http
-            .get(this.url + tipo + '?tsp=' + Date.now())
+            .get(this.url + tipo)
             .pipe(
                 catchError((error: any) =>
                     observableThrowError(error || 'Server error')
