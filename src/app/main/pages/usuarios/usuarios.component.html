@@ -106,11 +106,15 @@
                 </ng-container>
 
                 <!-- Date Column -->
+                <div>
+                    
+                </div>
+
                 <ng-container matColumnDef="rol">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Rol</mat-header-cell>
                     <mat-cell *matCellDef="let user">
                         <p class="text-truncate" class="green">
-                            {{user.roles[0].name}}
+                            {{user.roles[0].name || ' '}} 
                         </p>
                     </mat-cell>
                 </ng-container>

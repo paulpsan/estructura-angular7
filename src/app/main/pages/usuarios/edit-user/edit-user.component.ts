@@ -70,8 +70,8 @@ export class EditUserComponent implements OnInit {
             apellido: this.form.controls['apellido'].value,
             username: this.form.controls['username'].value,
             email: this.form.controls['email'].value,
-            estado: this.form.controls['estado'].value
-        };
+            estado: this.form.controls['estado'].value,
+                };
         console.log(user);
 
         this._userService.patchUser(user, this.id).subscribe(
@@ -96,8 +96,9 @@ export class EditUserComponent implements OnInit {
             }
         );
         if(this.rolSelect){
-            this._userService.patchRol(user, this.id,this.rolSelect).subscribe(
+            this._userService.patchRol(user,this.usuario,this.id,this.rolSelect).subscribe(
                 data => {
+                    
                     console.log(data);
                     this.snackBar.open('Usuario Actualizado exitosamente!!', '', {
                         horizontalPosition: 'right',
@@ -108,6 +109,7 @@ export class EditUserComponent implements OnInit {
                     this.router.navigate(['pages/usuarios']);
                 },
                 err => {
+                    console.log(err);
                     this.snackBar.open(err.error.error.message, '', {
                         horizontalPosition: 'right',
                         verticalPosition: 'top',

@@ -81,10 +81,14 @@ export class UserService {
             );
     }
 
-    patchRol(data: any, id: any,idRol: any): Observable<any> {
+    patchRol(data: any,user:any, id: any,idRol: any): Observable<any> {
         return this._http
-            .patch(this.url + 'usuarios/' + id, data)
-            .pipe(
+            .put(this.url + 'usuarios/' + id+'/roles/rel/'+idRol, {principalType: "USER"})
+            .pipe( 
+                map((resp)=>{
+                    this._http
+            .delete(this.url + 'usuarios/' + id+'/roles/rel/'+user.roles[0].id).subscribe()
+                }),
                 catchError((error: any) =>
                     observableThrowError(error || 'Server error')
                 )
