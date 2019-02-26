@@ -51,21 +51,26 @@ export class TematicasComponent implements OnInit {
             titulo: row.titulo,
             descripcion: row.descripcion
         });
+        this.campos=row.campos
     }
     cancelar(): void {
         console.log('object');
         this.form.reset();
+        this.campos=[]
     }
     addCampos() {
-        this.campos.push({ nombre: '', descripcion: '' });
+        this.campos.push({ nombre: '', descripcion: '',value:'' });
     }
     delCampos() {
         this.campos.pop();
     }
     addTematica(): void {
+        console.log(this.campos);
+
         const dataPost = {
             titulo: this.form.controls['titulo'].value,
-            descripcion: this.form.controls['descripcion'].value
+            descripcion: this.form.controls['descripcion'].value,
+            campos: this.campos
         };
         console.log(dataPost);
         this._httpService.post(`tematicas`, dataPost).subscribe(
@@ -77,6 +82,7 @@ export class TematicasComponent implements OnInit {
                     duration: 5000
                 });
                 this.form.reset();
+                this.campos=[];
                 this.obtenerDatos();
             },
             err => {
@@ -92,9 +98,11 @@ export class TematicasComponent implements OnInit {
     }
 
     save(): void {
+        console.log(this.campos);
         const dataPost = {
             titulo: this.form.controls['titulo'].value,
-            descripcion: this.form.controls['descripcion'].value
+            descripcion: this.form.controls['descripcion'].value,
+            campos: this.campos
         };
         this._httpService
             .patch(`tematicas`, this.dataSelect.id, dataPost)
@@ -110,6 +118,7 @@ export class TematicasComponent implements OnInit {
                     this.acctionNew = true;
                     this.dataSelect = undefined;
                     this.form.reset();
+                    this.campos=[];
                     this.obtenerDatos();
                 },
                 err => {

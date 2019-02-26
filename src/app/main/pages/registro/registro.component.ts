@@ -18,7 +18,7 @@ import { Router } from "@angular/router";
 export class RegistroComponent implements OnInit, OnDestroy {
     form: FormGroup;
     temasSociales;
-
+    tematica;
     // Horizontal Stepper
     horizontalStepperStep1: FormGroup;
     horizontalStepperStep2: FormGroup;
@@ -68,19 +68,10 @@ export class RegistroComponent implements OnInit, OnDestroy {
             distrito: new FormControl("", Validators.required),
             provincia: new FormControl("", Validators.required),
             domicilio: new FormControl("", Validators.required),
-            temas_sociales: new FormControl(""),
-            problematica: new FormControl(""),
             edad: new FormControl(""),
             nivel: new FormControl(""),
             grado: new FormControl(""),
-            adaptacion: new FormControl(""),
-            numero_licencia: new FormControl(""),
-            licencia_pre_natal: new FormControl(""),
-            detalle_pre_natal: new FormControl(""),
-            licencia_post_parto: new FormControl(""),
-            detalle_post_parto: new FormControl(""),
-            desercion: new FormControl(""),
-            numero_transferencia: new FormControl("")
+            temas_sociales: new FormControl(""),
         });
         this.getTematica();
     }
@@ -88,6 +79,13 @@ export class RegistroComponent implements OnInit, OnDestroy {
         this._httpService.get(`tematicas`).subscribe(resp => {
             this.temasSociales = resp;
         });
+    }
+    selecTematica(event: any){
+        this.tematica=event.value;
+    }
+    cancelar(){
+        this.tematica=null
+        this.form.reset();
     }
 
     register(): void {
@@ -104,27 +102,14 @@ export class RegistroComponent implements OnInit, OnDestroy {
                 distrito: this.form.controls["distrito"].value,
                 provincia: this.form.controls["provincia"].value,
                 domicilio: this.form.controls["domicilio"].value,
-                temas_sociales: this.form.controls["temas_sociales"].value,
-                problematica: this.form.controls["problematica"].value,
                 edad: this.form.controls["edad"].value,
                 nivel: this.form.controls["nivel"].value,
                 grado: this.form.controls["grado"].value,
-                adaptacion: this.form.controls["adaptacion"].value,
-                numero_licencia: this.form.controls["numero_licencia"].value,
-                licencia_pre_natal: this.form.controls["licencia_pre_natal"]
-                    .value,
-                detalle_pre_natal: this.form.controls["detalle_pre_natal"]
-                    .value,
-                licencia_post_parto: this.form.controls["licencia_post_parto"]
-                    .value,
-                detalle_post_parto: this.form.controls["detalle_post_parto"]
-                    .value,
-                desercion: this.form.controls["desercion"].value,
-                numero_transferencia: this.form.controls["numero_transferencia"]
-                    .value,
+                temas_sociales: this.form.controls["temas_sociales"].value,
                 fecha_creacion: new Date(),
                 fecha_modificacion: new Date(),
-                estado: "iniciado"
+                estado: "iniciado",
+                usuario:"",
             };
             console.log(dataPost);
             this._httpService.post(`registros`, dataPost).subscribe(

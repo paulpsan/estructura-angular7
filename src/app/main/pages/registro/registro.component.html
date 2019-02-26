@@ -24,11 +24,11 @@
             el sub sistema de educación regular,
         </p>
 
-        <div class="mb-24" fxLayout="row" fxLayoutAlign="start" fxLayout.gt-md="row">
+        <div class="mb-24" fxLayout="column" fxLayoutAlign="start">
             <!-- REACTIVE FORM EXAMPLE -->
 
             <form class="mat-card mat-elevation-z4 p-24 mr-24" fxLayout="column" fxFlex="1 0 auto"
-                (ngSubmit)="register()" name="form" [formGroup]="form">
+              name="form" [formGroup]="form">
                 <div class="h2 mb-24">Registro de Estudiantes</div>
 
                 <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
@@ -164,7 +164,7 @@
                 <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
                     <mat-form-field appearance="outline" fxFlex="40">
                         <mat-label>Temas Sociales</mat-label>
-                        <mat-select formControlName="temas_sociales">
+                        <mat-select formControlName="temas_sociales" (selectionChange)="selecTematica($event)" >
                             <mat-option *ngFor="let tematica of temasSociales" [value]="tematica">
                                 {{ tematica.titulo }}
                             </mat-option>
@@ -175,161 +175,34 @@
 
                     <mat-form-field appearance="outline" fxFlex="40" class="px-8">
                         <mat-label>Problematica</mat-label>
-                        <textarea matInput matTextareaAutosize formControlName="problematica"></textarea>
+                        <textarea matInput matTextareaAutosize ></textarea>
                         <mat-error>Problematica es requerido!</mat-error>
                     </mat-form-field>
                 </div>
-
-                <ng-container *ngFor="let item of items; let i=index">
-
-                    <div fxLayout="row" fxLayoutAlign="start center" fxFlex="40">
-                        <mat-form-field appearance="outline" fxFlex="40">
-                            <mat-label>Adaptaciones curriculares por licencias
-                                temporales</mat-label>
-                            <mat-select>
-                                <mat-option [value]="'Si'">
-                                    Si
-                                </mat-option>
-                                <mat-option [value]="'No'">
-                                    No
-                                </mat-option>
-                            </mat-select>
-                            <mat-icon matSuffix class="secondary-text">outlined_flag</mat-icon>
-                            <mat-error>Nivel es Requerido!</mat-error>
-                        </mat-form-field>
+            </form>
+            <div  class="mat-card p-24 mr-24" fxLayout="column" fxLayoutAlign="start" fxFlex="1 0 auto">
+                <div fxLayout="column" fxFlex="1 0 auto" *ngIf="tematica">
+                    <div *ngFor="let item of tematica.campos; let i=index" fxFlex="column" fxFlex="1 0 auto">
+                        <div fxLayout="row wrap" fxFlex="1 0 auto">
+                            <mat-form-field appearance="outline" fxFlex="70" class="pr-4">
+                                <mat-label>{{item.nombre}}</mat-label>
+                                <input matInput type="text" [(ngModel)]="item.value" [placeholder]="item.descripcion" required>
+                                <mat-error>{{item.nombre}} es Requerido!</mat-error>
+                            </mat-form-field>
+                        </div>
                     </div>
-                </ng-container>
-
-                <!-- <div
-                    fxLayout="row"
-                    fxLayoutAlign="start center"
-                    fxFlex="1 0 auto"
-                >
-                    <mat-form-field appearance="outline" fxFlex="40">
-                        <mat-label
-                            >Tiempo de licencia temporal pre natal</mat-label
-                        >
-                        <mat-select formControlName="licencia_pre_natal">
-                            <mat-option [value]="'Si'">
-                                Menos de 1 mes
-                            </mat-option>
-                            <mat-option [value]="'No'">
-                                Mas de 1 mes
-                            </mat-option>
-                        </mat-select>
-                        <mat-icon matSuffix class="secondary-text"
-                            >outlined_flag</mat-icon
-                        >
-                        <mat-error>Nivel es Requerido!</mat-error>
-                    </mat-form-field>
-                    <mat-form-field
-                        appearance="outline"
-                        fxFlex="50"
-                        class="px-8"
-                    >
-                        <mat-label>Detalle</mat-label>
-                        <textarea
-                            matInput
-                            matTextareaAutosize
-                            formControlName="detalle_pre_natal"
-                        ></textarea>
-                        <mat-error>Detalle es requerido!</mat-error>
-                    </mat-form-field>
                 </div>
-                <div
-                    fxLayout="row"
-                    fxLayoutAlign="start center"
-                    fxFlex="1 0 auto"
-                >
-                    <mat-form-field appearance="outline" fxFlex="40">
-                        <mat-label
-                            >Tiempo de licencia temporal post parto</mat-label
-                        >
-                        <mat-select formControlName="licencia_post_parto">
-                            <mat-option [value]="'Si'">
-                                Menos de 1 mes
-                            </mat-option>
-                            <mat-option [value]="'No'">
-                                Mas de 1 mes
-                            </mat-option>
-                        </mat-select>
-                        <mat-icon matSuffix class="secondary-text"
-                            >outlined_flag</mat-icon
-                        >
-                        <mat-error>Nivel es Requerido!</mat-error>
-                    </mat-form-field>
-                    <mat-form-field
-                        appearance="outline"
-                        fxFlex="50"
-                        class="px-8"
-                    >
-                        <mat-label>Detalle</mat-label>
-                        <textarea
-                            matInput
-                            matTextareaAutosize
-                            formControlName="detalle_post_parto"
-                        ></textarea>
-                        <mat-error>Detalle es requerido!</mat-error>
-                    </mat-form-field>
-                </div>
-                <div
-                    fxLayout="row"
-                    fxLayoutAlign="start center"
-                    fxFlex="1 0 auto"
-                >
-                    <mat-form-field
-                        appearance="outline"
-                        fxFlex="100"
-                        class="px-8"
-                    >
-                        <mat-label>Deserción y/o abandono escolar</mat-label>
-                        <textarea
-                            matInput
-                            matTextareaAutosize
-                            formControlName="desercion"
-                        ></textarea>
-                        <mat-error>Detalle es requerido!</mat-error>
-                    </mat-form-field>
-                </div>
-                <div
-                    fxLayout="row"
-                    fxLayoutAlign="start center"
-                    fxFlex="1 0 auto"
-                >
-                    <mat-form-field
-                        appearance="outline"
-                        fxFlex="100"
-                        class="px-8"
-                    >
-                        <mat-label
-                            >Nro. trasferencias de Unidad educativa
-                        </mat-label>
-                        <textarea
-                            matInput
-                            matTextareaAutosize
-                            formControlName="numero_transferencia"
-                        ></textarea>
-                        <mat-error>Detalle es requerido!</mat-error>
-                    </mat-form-field>
-                </div> -->
                 <div fxLayout="row" fxLayoutAlign="center" fxFlex="1 0 auto">
                     <button mat-raised-button fxFlex="20" color="accent" class="submit-button mr-4" aria-label="Guardar"
-                        type="submit" [disabled]="form.invalid">
+                        type="button" (click)="register()" [disabled]="form.invalid">
                         Guardar
                     </button>
                     <button mat-raised-button fxFlex="20" class="ml-4" color="warn" aria-label="Guardar" type="button"
-                        (click)="form.reset()">
+                        (click)="cancelar()">
                         Cancel
                     </button>
                 </div>
-            </form>
-
-            <!-- / REACTIVE FORM EXAMPLE -->
-
-            <!-- <div class="mat-card form-errors-model p-24 mat-elevation-z4">
-              <div class="h2 mb-24">Reactive Form Model</div>
-              <pre><code>{{form.getRawValue() | json}}</code></pre>
-          </div> -->
+            </div>
         </div>
     </div>
     <!-- / CONTENT -->
