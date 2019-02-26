@@ -29,6 +29,7 @@ export class RegistroComponent implements OnInit, OnDestroy {
     verticalStepperStep2: FormGroup;
     verticalStepperStep3: FormGroup;
 
+    items=[{nombre:"Adaptaciones",campo:"Numero"},{nombre:"Tiempo de Licencia",campo:"Numero2"},{nombre:"prueba",campo:"Numero4"},{nombre:"prueba",campo:"Numero5"}]
     // Private
     private _unsubscribeAll: Subject<any>;
 

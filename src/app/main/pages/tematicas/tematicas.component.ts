@@ -20,6 +20,7 @@ export class TematicasComponent implements OnInit {
     acctionEdit = false;
     acctionNew = true;
     dataSelect;
+    campos = [];
     column: string[] = ['titulo', 'descripcion', 'accion'];
     dataSource: MatTableDataSource<any>;
     @ViewChild(MatPaginator)
@@ -54,6 +55,12 @@ export class TematicasComponent implements OnInit {
     cancelar(): void {
         console.log('object');
         this.form.reset();
+    }
+    addCampos() {
+        this.campos.push({ nombre: '', descripcion: '' });
+    }
+    delCampos() {
+        this.campos.pop();
     }
     addTematica(): void {
         const dataPost = {
