@@ -26,7 +26,7 @@ export const navigation: FuseNavigation[] = [
                 id: 'Registro',
                 title: 'Registro',
                 type: 'item',
-                icon: 'file',
+                icon: 'library_add',
                 url: '/pages/registro'
             },
             // {
@@ -63,7 +63,7 @@ export const navigation: FuseNavigation[] = [
                 id: 'Tematica',
                 title: 'Temática',
                 type: 'item',
-                icon: 'person',
+                icon: 'label',
                 url: '/pages/tematica'
             }
         ]
