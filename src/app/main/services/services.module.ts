@@ -6,6 +6,7 @@ import { HttpService } from './http.service';
 import { AuthInterceptor } from './auth.interceptor';
 import { RespuestaInterceptor } from './respuesta.interceptor';
 import { MatSnackBarModule } from '@angular/material';
+import { FileService } from './file.service';
 
 @NgModule({
     declarations: [],
@@ -14,6 +15,7 @@ import { MatSnackBarModule } from '@angular/material';
     providers: [
         UserService,
         HttpService,
+        FileService,
         {
             provide: HTTP_INTERCEPTORS,
             useClass: AuthInterceptor,

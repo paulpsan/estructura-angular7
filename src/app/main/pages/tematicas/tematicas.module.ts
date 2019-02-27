@@ -11,7 +11,8 @@ import {
     MatPaginatorModule,
     MatTableModule,
     MatTooltipModule,
-    MatSortModule
+    MatSortModule,
+    MatCheckboxModule
 } from '@angular/material';
 import { FuseSharedModule } from 'theme/shared.module';
 
@@ -29,6 +30,7 @@ import { FuseSharedModule } from 'theme/shared.module';
         MatFormFieldModule,
         MatIconModule,
         MatInputModule,
+        MatCheckboxModule,
         FuseSharedModule
     ]
 })

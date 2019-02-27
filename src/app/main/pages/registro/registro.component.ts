@@ -9,6 +9,7 @@ import { Subject } from "rxjs";
 import { MatSnackBar, MatDatepickerInputEvent } from "@angular/material";
 import { HttpService } from "app/main/services/http.service";
 import { Router } from "@angular/router";
+import { FileService } from "app/main/services/file.service";
 
 @Component({
     selector: "app-registro",
@@ -19,6 +20,7 @@ export class RegistroComponent implements OnInit, OnDestroy {
     form: FormGroup;
     temasSociales;
     tematica;
+    file;
     // Horizontal Stepper
     horizontalStepperStep1: FormGroup;
     horizontalStepperStep2: FormGroup;
@@ -29,7 +31,12 @@ export class RegistroComponent implements OnInit, OnDestroy {
     verticalStepperStep2: FormGroup;
     verticalStepperStep3: FormGroup;
 
-    items=[{nombre:"Adaptaciones",campo:"Numero"},{nombre:"Tiempo de Licencia",campo:"Numero2"},{nombre:"prueba",campo:"Numero4"},{nombre:"prueba",campo:"Numero5"}]
+    items = [
+        { nombre: "Adaptaciones", campo: "Numero" },
+        { nombre: "Tiempo de Licencia", campo: "Numero2" },
+        { nombre: "prueba", campo: "Numero4" },
+        { nombre: "prueba", campo: "Numero5" }
+    ];
     // Private
     private _unsubscribeAll: Subject<any>;
 
@@ -42,7 +49,8 @@ export class RegistroComponent implements OnInit, OnDestroy {
         private _formBuilder: FormBuilder,
         private _httpService: HttpService,
         private snackBar: MatSnackBar,
-        private router: Router
+        private router: Router,
+        private _fileService: FileService
     ) {
         // Set the private defaults
         this._unsubscribeAll = new Subject();
@@ -71,7 +79,7 @@ export class RegistroComponent implements OnInit, OnDestroy {
             edad: new FormControl(""),
             nivel: new FormControl(""),
             grado: new FormControl(""),
-            temas_sociales: new FormControl(""),
+            temas_sociales: new FormControl("")
         });
         this.getTematica();
     }
@@ -80,16 +88,34 @@ export class RegistroComponent implements OnInit, OnDestroy {
             this.temasSociales = resp;
         });
     }
-    selecTematica(event: any){
-        this.tematica=event.value;
+    selecTematica(event: any) {
+        this.tematica = event.value;
     }
-    cancelar(){
-        this.tematica=null
+    cancelar() {
+        this.tematica = null;
         this.form.reset();
     }
-
+    selectFile(archivo: File) {
+        if (!archivo) {
+            this.file = null;
+            return;
+        }
+        this.file = archivo;
+        // const reader = new FileReader();
+        // const urlImagenTemp = reader.readAsDataURL(archivo);
+        // reader.onloadend = () => (this.file = reader.result);
+        console.log(this.file);
+    }
     register(): void {
         console.log("registro");
+        // this._fileService
+        //     .subirImagen(this.file, "proyectos", this.file)
+        //     .then((resp: any) => {
+        //         const objPatch = {
+        //             avatar: resp.proyecto.avatar
+        //         };
+        //     });
+
         if (this.form.valid) {
             const dataPost = {
                 nombres: this.form.controls["nombres"].value,
@@ -109,7 +135,7 @@ export class RegistroComponent implements OnInit, OnDestroy {
                 fecha_creacion: new Date(),
                 fecha_modificacion: new Date(),
                 estado: "iniciado",
-                usuario:"",
+                usuario: ""
             };
             console.log(dataPost);
             this._httpService.post(`registros`, dataPost).subscribe(

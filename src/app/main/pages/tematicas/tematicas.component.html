@@ -43,7 +43,7 @@
             </form>
             <div class="mat-card p-24 mr-24">
                 <div fxLayout="column" fxFlex="1 0 auto">
-                    <div fxLayout="row" fxFlex="1 0 auto" fxLayoutAlign>
+                    <div fxLayout="row" fxFlex="1 0 auto" fxLayoutAlign="start center">
                         <button mat-button class="pl-4" type="button" color="accent" matTooltip="Guardar">Adicionar
                             Formulario
                         </button>
@@ -53,8 +53,10 @@
                         </button>
                         <button mat-icon-button class="pl-4" type="button" (click)="delCampos()" color="warn"
                         matTooltip="Eliminar" [disabled]="campos.length===0">
-                        <mat-icon mat-list.icon>delete</mat-icon>
-                    </button>
+                            <mat-icon mat-list.icon>delete</mat-icon>
+                        </button>
+                            <mat-checkbox fxFlex="40" fxLayoutAlign="center" color="accent" [(ngModel)]="adjArchivo">Adjuntar Archivo</mat-checkbox>
+
                     </div>
 
                     <div *ngFor="let item of campos; let i=index" fxFlex="column" fxFlex="1 0 auto">

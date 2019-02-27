@@ -180,6 +180,19 @@
                     </mat-form-field>
                 </div>
             </form>
+            <div *ngIf="tematica" class="mat-card p-24 mr-24" fxLayout="column" fxLayoutAlign="start" fxFlex="1 0 auto">
+                <div fxLayout="row wrap" fxFlex="1 0 auto" *ngIf="tematica.adjArchivo">
+                    <mat-label >Adjuntar archivo</mat-label>
+                    <button mat-raised-button type="button" color="accent" (click)="fileToUpload.click()">
+                        <mat-icon mat-list-icon>attach_file</mat-icon>Subir Archivo
+                    </button>
+                    <input #fileToUpload (change)="selectFile($event.target.files[0])" type="file" style="display:none;" accept=".png, .jpg, .jpeg">
+                    <div *ngIf="file">
+                        {{file.name}}
+                    </div>
+                </div>
+            </div>
+
             <div  class="mat-card p-24 mr-24" fxLayout="column" fxLayoutAlign="start" fxFlex="1 0 auto">
                 <div fxLayout="column" fxFlex="1 0 auto" *ngIf="tematica">
                     <div *ngFor="let item of tematica.campos; let i=index" fxFlex="column" fxFlex="1 0 auto">

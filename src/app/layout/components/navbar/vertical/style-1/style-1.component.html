@@ -25,8 +25,8 @@
 
     <div class="user" fxLayout="column" [ngClass]="fuseConfig.layout.navbar.secondaryBackground">
 
-        <div class="h3 username">Paul Sanchez</div>
-        <div class="h5 email hint-text mt-8">paulpsan@gmail.com</div>
+        <div class="h3 username">{{usuario.nombre}} {{usuario.apellido}}</div>
+        <div class="h5 email hint-text mt-8">{{usuario.email}}</div>
         <div class="avatar-container" [ngClass]="fuseConfig.layout.navbar.primaryBackground">
             <img class="avatar" src="assets/images/avatars/Velazquez.jpg">
         </div>

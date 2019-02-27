@@ -8,6 +8,7 @@ import { FuseConfigService } from 'theme/services/config.service';
 import { FuseSidebarService } from 'theme/components/sidebar/sidebar.service';
 
 import { navigation } from 'app/navigation/navigation';
+import { UserService } from 'app/main/services/user.service';
 
 @Component({
     selector: 'toolbar',
@@ -23,7 +24,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     navigation: any;
     selectedLanguage: any;
     userStatusOptions: any[];
-
+    usuario;
     // Private
     private _unsubscribeAll: Subject<any>;
 
@@ -37,7 +38,8 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     constructor(
         private _fuseConfigService: FuseConfigService,
         private _fuseSidebarService: FuseSidebarService,
-        private _translateService: TranslateService
+        private _translateService: TranslateService,
+        private _userService: UserService
     ) {
         // Set the defaults
         this.userStatusOptions = [
@@ -96,6 +98,9 @@ export class ToolbarComponent implements OnInit, OnDestroy {
      */
     ngOnInit(): void {
         // Subscribe to the config changes
+        this._userService.usuario$.subscribe(resp=>{
+            this.usuario=resp
+        })
         this._fuseConfigService.config
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe(settings => {

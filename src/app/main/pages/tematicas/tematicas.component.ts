@@ -1,27 +1,28 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Subject } from 'rxjs';
+import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Subject } from "rxjs";
 import {
     MatSnackBar,
     PageEvent,
     MatPaginator,
     MatSort,
     MatTableDataSource
-} from '@angular/material';
-import { HttpService } from 'app/main/services/http.service';
+} from "@angular/material";
+import { HttpService } from "app/main/services/http.service";
 
 @Component({
-    selector: 'app-tematicas',
-    templateUrl: './tematicas.component.html',
-    styleUrls: ['./tematicas.component.scss']
+    selector: "app-tematicas",
+    templateUrl: "./tematicas.component.html",
+    styleUrls: ["./tematicas.component.scss"]
 })
 export class TematicasComponent implements OnInit {
     form: FormGroup;
     acctionEdit = false;
     acctionNew = true;
     dataSelect;
+    adjArchivo;
     campos = [];
-    column: string[] = ['titulo', 'descripcion', 'accion'];
+    column: string[] = ["titulo", "descripcion", "accion"];
     dataSource: MatTableDataSource<any>;
     @ViewChild(MatPaginator)
     paginator: MatPaginator;
@@ -36,8 +37,8 @@ export class TematicasComponent implements OnInit {
 
     ngOnInit(): void {
         this.form = this._formBuilder.group({
-            titulo: ['', Validators.required],
-            descripcion: ['', Validators.required]
+            titulo: ["", Validators.required],
+            descripcion: ["", Validators.required]
         });
         this.obtenerDatos();
     }
@@ -51,15 +52,16 @@ export class TematicasComponent implements OnInit {
             titulo: row.titulo,
             descripcion: row.descripcion
         });
-        this.campos=row.campos
+        this.campos = row.campos;
+        this.adjArchivo = row.adjArchivo;
     }
     cancelar(): void {
-        console.log('object');
+        console.log("object");
         this.form.reset();
-        this.campos=[]
+        this.campos = [];
     }
     addCampos() {
-        this.campos.push({ nombre: '', descripcion: '',value:'' });
+        this.campos.push({ nombre: "", descripcion: "", value: "" });
     }
     delCampos() {
         this.campos.pop();
@@ -68,28 +70,30 @@ export class TematicasComponent implements OnInit {
         console.log(this.campos);
 
         const dataPost = {
-            titulo: this.form.controls['titulo'].value,
-            descripcion: this.form.controls['descripcion'].value,
-            campos: this.campos
+            titulo: this.form.controls["titulo"].value,
+            descripcion: this.form.controls["descripcion"].value,
+            campos: this.campos,
+            adjArchivo: this.adjArchivo
         };
         console.log(dataPost);
         this._httpService.post(`tematicas`, dataPost).subscribe(
             resp => {
-                this.snackBar.open('La Adición fue correcta', '', {
-                    horizontalPosition: 'right',
-                    verticalPosition: 'top',
-                    panelClass: 'background-success',
+                this.snackBar.open("La Adición fue correcta", "", {
+                    horizontalPosition: "right",
+                    verticalPosition: "top",
+                    panelClass: "background-success",
                     duration: 5000
                 });
                 this.form.reset();
-                this.campos=[];
+                this.campos = [];
+                this.adjArchivo = null;
                 this.obtenerDatos();
             },
             err => {
-                this.snackBar.open(err.error.error.message, '', {
-                    horizontalPosition: 'right',
-                    verticalPosition: 'top',
-                    panelClass: 'background-warning',
+                this.snackBar.open(err.error.error.message, "", {
+                    horizontalPosition: "right",
+                    verticalPosition: "top",
+                    panelClass: "background-warning",
                     duration: 5000
                 });
                 this.form.reset();
@@ -100,32 +104,34 @@ export class TematicasComponent implements OnInit {
     save(): void {
         console.log(this.campos);
         const dataPost = {
-            titulo: this.form.controls['titulo'].value,
-            descripcion: this.form.controls['descripcion'].value,
-            campos: this.campos
+            titulo: this.form.controls["titulo"].value,
+            descripcion: this.form.controls["descripcion"].value,
+            campos: this.campos,
+            adjArchivo: this.adjArchivo
         };
         this._httpService
             .patch(`tematicas`, this.dataSelect.id, dataPost)
             .subscribe(
                 resp => {
-                    this.snackBar.open('La Edición fue correcta', '', {
-                        horizontalPosition: 'right',
-                        verticalPosition: 'top',
-                        panelClass: 'background-success',
+                    this.snackBar.open("La Edición fue correcta", "", {
+                        horizontalPosition: "right",
+                        verticalPosition: "top",
+                        panelClass: "background-success",
                         duration: 5000
                     });
                     this.acctionEdit = false;
                     this.acctionNew = true;
                     this.dataSelect = undefined;
                     this.form.reset();
-                    this.campos=[];
+                    this.campos = [];
+                    this.adjArchivo = null;
                     this.obtenerDatos();
                 },
                 err => {
-                    this.snackBar.open(err.error.error.message, '', {
-                        horizontalPosition: 'right',
-                        verticalPosition: 'top',
-                        panelClass: 'background-warning',
+                    this.snackBar.open(err.error.error.message, "", {
+                        horizontalPosition: "right",
+                        verticalPosition: "top",
+                        panelClass: "background-warning",
                         duration: 5000
                     });
                 }
@@ -134,23 +140,23 @@ export class TematicasComponent implements OnInit {
 
     delete(element): void {
         console.log(element);
-        if (confirm('Esta seguro de eliminar la tematica: ' + element.titulo)) {
+        if (confirm("Esta seguro de eliminar la tematica: " + element.titulo)) {
             this._httpService.delete(`tematicas`, element.id).subscribe(
                 resp => {
-                    this.snackBar.open('La eliminación fue correcta', '', {
-                        horizontalPosition: 'right',
-                        verticalPosition: 'top',
-                        panelClass: 'background-success',
+                    this.snackBar.open("La eliminación fue correcta", "", {
+                        horizontalPosition: "right",
+                        verticalPosition: "top",
+                        panelClass: "background-success",
                         duration: 5000
                     });
                     this.form.reset();
                     this.obtenerDatos();
                 },
                 err => {
-                    this.snackBar.open(err.error.error.message, '', {
-                        horizontalPosition: 'right',
-                        verticalPosition: 'top',
-                        panelClass: 'background-warning',
+                    this.snackBar.open(err.error.error.message, "", {
+                        horizontalPosition: "right",
+                        verticalPosition: "top",
+                        panelClass: "background-warning",
                         duration: 5000
                     });
                 }

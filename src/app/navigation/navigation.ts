@@ -1,6 +1,7 @@
 import { FuseNavigation } from 'theme/types';
 
 export const navigation: FuseNavigation[] = [
+
     {
         id: 'applications',
         title: 'Aplicaciones',
@@ -48,7 +49,7 @@ export const navigation: FuseNavigation[] = [
     {
         id: 'administracion',
         title: 'Administracion',
-        translate: 'NAV.ADMIN',
+        translate: 'Administracion',
         type: 'group',
         children: [
             {
