@@ -70,10 +70,8 @@ export class LoginComponent implements OnInit {
             email: this.loginForm.controls['email'].value,
             password: this.loginForm.controls['password'].value
         };
-        console.log(user);
         this._userService.loginUser(user).subscribe(
             data => {
-                console.log(data);
                 this.router.navigate(['pages/listado']);
             },
             err => {

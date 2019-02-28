@@ -103,7 +103,6 @@ export class NavbarVerticalStyle1Component implements OnInit, OnDestroy
     {
         this._userSevice.usuario$.subscribe(resp=>{
             this.usuario=resp;
-            console.log(resp);
         })
         this._router.events
             .pipe(
@@ -126,14 +125,14 @@ export class NavbarVerticalStyle1Component implements OnInit, OnDestroy
             });
 
         // Get current navigation
-        this._fuseNavigationService.onNavigationChanged
-            .pipe(
-                filter(value => value !== null),
-                takeUntil(this._unsubscribeAll)
-            )
-            .subscribe(() => {
-                this.navigation = this._fuseNavigationService.getCurrentNavigation();
-            });
+        // this._fuseNavigationService.onNavigationChanged
+        //     .pipe(
+        //         filter(value => value !== null),
+        //         takeUntil(this._unsubscribeAll)
+        //     )
+        //     .subscribe(() => {
+        //         this.navigation = this._fuseNavigationService.getCurrentNavigation();
+        //     });
     }
 
     /**

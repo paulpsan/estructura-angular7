@@ -113,14 +113,14 @@ export class NavbarVerticalStyle2Component implements OnInit, OnDestroy
             );
 
         // Get current navigation
-        this._fuseNavigationService.onNavigationChanged
-            .pipe(
-                filter(value => value !== null),
-                takeUntil(this._unsubscribeAll)
-            )
-            .subscribe(() => {
-                this.navigation = this._fuseNavigationService.getCurrentNavigation();
-            });
+        // this._fuseNavigationService.onNavigationChanged
+        //     .pipe(
+        //         filter(value => value !== null),
+        //         takeUntil(this._unsubscribeAll)
+        //     )
+        //     .subscribe(() => {
+        //         this.navigation = this._fuseNavigationService.getCurrentNavigation();
+        //     });
 
         // Subscribe to the config changes
         this._fuseConfigService.config
