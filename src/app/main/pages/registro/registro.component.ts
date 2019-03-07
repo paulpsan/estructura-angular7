@@ -10,6 +10,7 @@ import { MatSnackBar, MatDatepickerInputEvent } from "@angular/material";
 import { HttpService } from "app/main/services/http.service";
 import { Router } from "@angular/router";
 import { FileService } from "app/main/services/file.service";
+import { UserService } from "app/main/services/user.service";
 
 @Component({
     selector: "app-registro",
@@ -20,6 +21,7 @@ export class RegistroComponent implements OnInit, OnDestroy {
     form: FormGroup;
     temasSociales;
     tematica;
+    usuario;
     file;
     // Horizontal Stepper
     horizontalStepperStep1: FormGroup;
@@ -50,7 +52,8 @@ export class RegistroComponent implements OnInit, OnDestroy {
         private _httpService: HttpService,
         private snackBar: MatSnackBar,
         private router: Router,
-        private _fileService: FileService
+        private _fileService: FileService,
+        private _userService: UserService
     ) {
         // Set the private defaults
         this._unsubscribeAll = new Subject();
@@ -65,6 +68,9 @@ export class RegistroComponent implements OnInit, OnDestroy {
      */
     ngOnInit(): void {
         // Reactive Form
+        this._userService.usuario$.subscribe(user=>{
+            this.usuario=user
+        })
         this.form = new FormGroup({
             nombres: new FormControl("", Validators.required),
             apellidos: new FormControl("", Validators.required),
@@ -135,7 +141,7 @@ export class RegistroComponent implements OnInit, OnDestroy {
                 fecha_creacion: new Date(),
                 fecha_modificacion: new Date(),
                 estado: "iniciado",
-                usuario: ""
+                usuario: this.usuario
             };
             console.log(dataPost);
             this._httpService.post(`registros`, dataPost).subscribe(

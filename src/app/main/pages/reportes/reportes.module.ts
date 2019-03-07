@@ -14,12 +14,14 @@ import {
 import { ReportesRoutingModule } from './reportes-routing.module';
 import { ReportesComponent } from './reportes.component';
 import { FuseSharedModule } from 'theme/shared.module';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+
 
 @NgModule({
   declarations: [ReportesComponent],
   imports: [
     ReportesRoutingModule,
-
+    NgxChartsModule,
     MatTooltipModule,
         MatTableModule,
         MatPaginatorModule,
